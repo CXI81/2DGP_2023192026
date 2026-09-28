@@ -74,8 +74,9 @@ SDL_PumpEvents()
 boy = load_image('../../LEC05/character.png')
 
 while True:
-    move_circle()
+    # move_circle()
     move_rectangle()
     move_triangle()
+    pass
 
 close_canvas()
