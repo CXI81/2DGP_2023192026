@@ -34,6 +34,11 @@ def move_right():
 
 def move_bottom():
     print("bottom")
+    for x in range(750, 49, -5):
+        clear_canvas()
+        boy.draw(x, 50)
+        update_canvas()
+        delay(0.01)
 
 
 def move_left():
