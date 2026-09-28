@@ -17,6 +17,12 @@ TRIANGLE_C = (400, 500)
 TRIANGLE_STEPS = 120
 
 
+def interpolate_point(start, end, t):
+    x = start[0] + (end[0] - start[0]) * t
+    y = start[1] + (end[1] - start[1]) * t
+    return x, y
+
+
 def draw_boy(x, y):
     clear_canvas()
     boy.draw(x, y)
