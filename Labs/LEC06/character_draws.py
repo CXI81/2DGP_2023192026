@@ -24,10 +24,7 @@ def move_circle():
         x = 400 + 200 * math.cos(theta)
         y = 300 + 200 * math.sin(theta)
 
-        clear_canvas()
-        boy.draw(x, y)
-        update_canvas()
-        delay(0.01)
+        draw_boy(x, y)
 
 
 def move_top():
