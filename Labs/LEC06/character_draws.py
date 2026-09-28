@@ -85,6 +85,13 @@ def move_triangle_b_to_c():
         draw_boy(x, y)
 
 
+def move_triangle_c_to_a():
+    for step in range(TRIANGLE_STEPS + 1):
+        t = step / TRIANGLE_STEPS
+        x, y = interpolate_point(TRIANGLE_C, TRIANGLE_A, t)
+        draw_boy(x, y)
+
+
 def move_triangle():
     print("move_triangle")
 
