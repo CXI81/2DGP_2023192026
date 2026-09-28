@@ -46,6 +46,9 @@ def move_triangle():
 open_canvas(800, 600)
 boy = load_image('../../LEC05/character.png')
 
-move_circle()
+while True:
+    move_circle()
+    move_rectangle()
+    move_triangle()
 
 close_canvas()
