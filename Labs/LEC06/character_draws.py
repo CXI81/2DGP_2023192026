@@ -71,6 +71,13 @@ def move_rectangle():
     move_left()
 
 
+def move_triangle_a_to_b():
+    for step in range(TRIANGLE_STEPS + 1):
+        t = step / TRIANGLE_STEPS
+        x, y = interpolate_point(TRIANGLE_A, TRIANGLE_B, t)
+        draw_boy(x, y)
+
+
 def move_triangle():
     print("move_triangle")
 
