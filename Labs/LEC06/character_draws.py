@@ -99,6 +99,12 @@ def move_triangle():
     move_triangle_c_to_a()
 
 
+def move_all_motions():
+    move_circle()
+    move_rectangle()
+    move_triangle()
+
+
 
 open_canvas(800, 600)
 SDL_SetWindowSize(pico2d_module.window, 800, 600)
