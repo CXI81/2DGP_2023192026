@@ -96,6 +96,7 @@ def move_triangle():
     print("move_triangle")
     move_triangle_a_to_b()
     move_triangle_b_to_c()
+    move_triangle_c_to_a()
 
 
 
