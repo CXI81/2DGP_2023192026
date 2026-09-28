@@ -11,6 +11,13 @@ from sdl2 import (
 )
 
 
+def draw_boy(x, y):
+    clear_canvas()
+    boy.draw(x, y)
+    update_canvas()
+    delay(0.01)
+
+
 def move_circle():
     for degree in range(360):
         theta = math.radians(degree)
