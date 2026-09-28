@@ -14,6 +14,7 @@ from sdl2 import (
 TRIANGLE_A = (100, 100)
 TRIANGLE_B = (700, 100)
 TRIANGLE_C = (400, 500)
+TRIANGLE_STEPS = 120
 
 
 def draw_boy(x, y):
