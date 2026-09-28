@@ -1,5 +1,14 @@
 from pico2d import *
+import pico2d.pico2d as pico2d_module
 import math
+from sdl2 import (
+    SDL_PumpEvents,
+    SDL_RaiseWindow,
+    SDL_SetWindowPosition,
+    SDL_SetWindowSize,
+    SDL_ShowWindow,
+    SDL_WINDOWPOS_CENTERED,
+)
 
 
 def move_circle():
@@ -64,6 +73,12 @@ def move_triangle():
 
 
 open_canvas(800, 600)
+SDL_SetWindowSize(pico2d_module.window, 800, 600)
+SDL_SetWindowPosition(pico2d_module.window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED)
+SDL_PumpEvents()
+SDL_ShowWindow(pico2d_module.window)
+SDL_RaiseWindow(pico2d_module.window)
+SDL_PumpEvents()
 boy = load_image('../../LEC05/character.png')
 
 while True:
