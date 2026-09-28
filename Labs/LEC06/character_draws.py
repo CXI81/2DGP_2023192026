@@ -43,6 +43,11 @@ def move_bottom():
 
 def move_left():
     print("left")
+    for y in range(50, 551, 5):
+        clear_canvas()
+        boy.draw(50, y)
+        update_canvas()
+        delay(0.01)
 
 
 def move_rectangle():
