@@ -97,6 +97,8 @@ class Drill09Tests(unittest.TestCase):
         cases = [({d.SDLK_LEFT}, (50, 300)), ({d.SDLK_RIGHT}, (750, 300)),
                  ({d.SDLK_UP}, (400, 550)), ({d.SDLK_DOWN}, (400, 50)),
                  ({d.SDLK_LEFT, d.SDLK_DOWN}, (50, 50)),
+                 ({d.SDLK_LEFT, d.SDLK_UP}, (50, 550)),
+                 ({d.SDLK_RIGHT, d.SDLK_DOWN}, (750, 50)),
                  ({d.SDLK_RIGHT, d.SDLK_UP}, (750, 550))]
         for buttons, expected in cases:
             with self.subTest(buttons=buttons):
@@ -104,6 +106,9 @@ class Drill09Tests(unittest.TestCase):
                 b.pressed_keys.update(buttons)
                 b.update(100)
                 self.assertEqual((b.x, b.y), expected)
+                for _ in range(10):
+                    b.update(0.1)
+                    self.assertEqual((b.x, b.y), expected)
 
     def test_idle_frames_animate_and_wrap(self):
         b = d.Boy()
@@ -123,9 +128,22 @@ class Drill09Tests(unittest.TestCase):
                 d.main()
                 close.assert_called_once()
 
+    def test_required_background_and_sprite_are_loaded_and_drawn(self):
+        with patch.object(d, 'open_canvas'), patch.object(d, 'load_image') as load, \
+                patch.object(d, 'get_time', return_value=0), \
+                patch.object(d, 'get_events', side_effect=[[], [SimpleNamespace(type=d.SDL_QUIT)]]), \
+                patch.object(d, 'clear_canvas'), patch.object(d, 'update_canvas'), \
+                patch.object(d, 'delay'), patch.object(d, 'close_canvas'):
+            d.main()
+            self.assertEqual([c.args[0] for c in load.call_args_list],
+                             [str(d.ASSET_DIR / 'TUK_GROUND.png'),
+                              str(d.ASSET_DIR / 'animation_sheet.png')])
+            load.return_value.draw.assert_called_once_with(400, 300, 800, 600)
+            load.return_value.clip_draw.assert_called_once_with(0, 300, 100, 100, 400, 300)
+
     def test_assets_resolve_from_script_directory(self):
         self.assertTrue((d.ASSET_DIR / 'animation_sheet.png').is_file())
-        self.assertTrue((d.ASSET_DIR / 'grass.png').is_file())
+        self.assertTrue((d.ASSET_DIR / 'TUK_GROUND.png').is_file())
         self.assertEqual(d.ASSET_DIR, SCRIPT.resolve().parent)
 
 

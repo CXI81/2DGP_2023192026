@@ -66,7 +66,7 @@ class Boy:
 def main():
     open_canvas(CANVAS_WIDTH, CANVAS_HEIGHT)
     try:
-        grass = load_image(str(ASSET_DIR / 'grass.png'))
+        background = load_image(str(ASSET_DIR / 'TUK_GROUND.png'))
         character = load_image(str(ASSET_DIR / 'animation_sheet.png'))
         boy = Boy()
         running = True
@@ -84,7 +84,8 @@ def main():
                 break
             boy.update(dt)
             clear_canvas()
-            grass.draw(CANVAS_WIDTH / 2, 30)
+            background.draw(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2,
+                            CANVAS_WIDTH, CANVAS_HEIGHT)
             character.clip_draw(int(boy.frame) * FRAME_WIDTH, boy.animation_row(),
                                 FRAME_WIDTH, FRAME_HEIGHT, boy.x, boy.y)
             update_canvas()
