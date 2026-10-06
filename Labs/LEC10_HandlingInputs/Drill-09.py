@@ -50,6 +50,9 @@ class Boy:
         if moving:
             self.x += dx / length * MOVE_SPEED * dt
             self.y += dy / length * MOVE_SPEED * dt
+        # Keep the complete 100x100 sprite inside the canvas, not just its center.
+        self.x = max(FRAME_WIDTH / 2, min(self.x, CANVAS_WIDTH - FRAME_WIDTH / 2))
+        self.y = max(FRAME_HEIGHT / 2, min(self.y, CANVAS_HEIGHT - FRAME_HEIGHT / 2))
         self.frame = (self.frame + ANIMATION_FPS * dt) % FRAME_COUNT
 
     def animation_row(self):
