@@ -18,10 +18,16 @@ class Boy:
         self.y = CANVAS_HEIGHT / 2
         self.frame = 0.0
         self.pressed_keys = set()
+        self.facing = 1  # 1: right, -1: left
+        self.moving = False
 
     def handle_event(self, event):
         if event.type == SDL_KEYDOWN and event.key in ARROW_KEYS:
             self.pressed_keys.add(event.key)
+            if event.key == SDLK_LEFT:
+                self.facing = -1
+            elif event.key == SDLK_RIGHT:
+                self.facing = 1
         elif event.type == SDL_KEYUP and event.key in ARROW_KEYS:
             self.pressed_keys.discard(event.key)
         elif event.type == SDL_WINDOWEVENT and event.event == SDL_WINDOWEVENT_FOCUS_LOST:
@@ -35,13 +41,23 @@ class Boy:
     def update(self, dt):
         dx, dy = self.movement()
         length = hypot(dx, dy)
-        if length:
+        moving = bool(length)
+        if moving != self.moving:
+            self.frame = 0.0
+        self.moving = moving
+        if dx:
+            self.facing = 1 if dx > 0 else -1
+        if moving:
             self.x += dx / length * MOVE_SPEED * dt
             self.y += dy / length * MOVE_SPEED * dt
         self.frame = (self.frame + ANIMATION_FPS * dt) % FRAME_COUNT
 
     def animation_row(self):
-        return 300
+        # Sprite-sheet rows, measured from the bottom: left run, right run,
+        # left idle, right idle. Vertical movement keeps the last facing.
+        if self.moving:
+            return 100 if self.facing == 1 else 0
+        return 300 if self.facing == 1 else 200
 
 
 def main():
